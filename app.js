@@ -26,21 +26,22 @@ passport.use(new LocalStrategy(
       }
       if (!user) {
         console.log('!user');
-        user = new User({ 
+        /*user = new User({ 
           firstname: username
-        });
+        });*/
         //user.facebookId = profile.id;
         //user.firstname = profile.name.givenName;
         //user.lastname = profile.name.familyName;
-        user.save((err, user) => {
+        /*user.save((err, user) => {
           if (err)
             return done(err, false);
           else 
             return done(null, user);
-        })
+        })*/
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (!user.validPassword(password)) {
+      //if (!user.validPassword(password)) {
+      if (user.password != password) {
         console.log('incorrect password');
         return done(null, false, { message: 'Incorrect password.' });
       }
@@ -112,14 +113,16 @@ app.use(passport.session());
 app.use(flash());
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  console.log(user);
+  done(null, user.id);
   });
   
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-  /*User.findById(id, function(err, user) {
+passport.deserializeUser(function(id, done) {
+  //done(null, user);
+  console.log(id);
+  User.findById(id, function(err, user) {
     done(err, user);
-  });*/
+  });
 });
 
 /*app.use(require('express-session')({
@@ -176,6 +179,20 @@ db.once('open', function() {
   // we're connected!
   console.log("we're connected!");
 });
+/*
+const user = new User({ 
+  username: 'alex',
+  password: '123'
+});
+
+user.save((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('add user');
+    //res.status(201).send();
+  }
+});*/
 
 const logger = winston.createLogger({
   level: 'info',
@@ -208,7 +225,7 @@ app.use('/news', newsRouter);
 app.post('/login', //function(req, res, next) {
   passport.authenticate('local', { successRedirect: '/news',
                                    failureRedirect: '/error',
-                                   failureFlash: true })
+                                   failureFlash: false })
   /*passport.authenticate('local', function(err, user, info) {
     if (err) { 
       console.log('/login err');

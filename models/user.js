@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 //import passportLocalMongoose from 'passport-local-mongoose';
 
 const UserSchema = new Schema({
-	firstname: {
+	username: {
 		type: String,
 		default: ''
 	},
-	lastname: {
+	password: {
 		type: String,
 		default: ''
 	},
