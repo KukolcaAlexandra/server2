@@ -6,6 +6,8 @@ const winston = require('winston');
 
 const indexRouter = require('./routes/index');
 const newsRouter = require('./routes/news');
+const registrationRouter = require('./routes/registration');
+const loginRouter = require('./routes/login');
 const app = express();
 var mongoose = require('mongoose');
 var session = require('express-session');
@@ -26,18 +28,6 @@ passport.use(new LocalStrategy(
       }
       if (!user) {
         console.log('!user');
-        /*user = new User({ 
-          firstname: username
-        });*/
-        //user.facebookId = profile.id;
-        //user.firstname = profile.name.givenName;
-        //user.lastname = profile.name.familyName;
-        /*user.save((err, user) => {
-          if (err)
-            return done(err, false);
-          else 
-            return done(null, user);
-        })*/
         return done(null, false, { message: 'Incorrect username.' });
       }
       //if (!user.validPassword(password)) {
@@ -99,7 +89,7 @@ app.set('view engine', 'pug');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static('public'));
+//app.use(express.static('public'));
 //app.use(express.cookieParser());
 //app.use(express.bodyParser());
 //app.use(express.session({ secret: 'keyboard cat' }));
@@ -220,30 +210,12 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/news', newsRouter);
+app.use('/registration', registrationRouter);
+app.use('/login', loginRouter);
 
 
-app.post('/login', //function(req, res, next) {
-  passport.authenticate('local', { successRedirect: '/news',
-                                   failureRedirect: '/error',
-                                   failureFlash: false })
-  /*passport.authenticate('local', function(err, user, info) {
-    if (err) { 
-      console.log('/login err');
-      return next(err); 
-    }
-    console.log('user');
-    console.log(user);
-    if (!user) {
-      console.log('/login !user'); 
-      return res.redirect('/login'); 
-    } 
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      console.log('/login res.logIn');
-        return res.redirect('/news');
-    });
-  })(req, res, next);*/
-);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

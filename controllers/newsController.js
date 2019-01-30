@@ -31,6 +31,8 @@ exports.getNewsWithId = function(req, res) {
 // Создать автора по запросу POST.
 exports.addNews = function(req, res) {
   //res.send('NOT IMPLEMENTED: News add POST');
+  console.log('from post news, req.user = ');
+  console.log(req.user);
   console.log(req.body);
   const news = new News(req.body);
   news.save((err) => {
@@ -47,7 +49,7 @@ exports.addNews = function(req, res) {
 exports.deleteNews = function(req, res) {
   // res.send('NOT IMPLEMENTED: News delete DELETE');
   //console.log(req.user);
-  console.log('from get news, req.user = ');
+  console.log('from delete news, req.user = ');
   console.log(req.user);
   News.deleteOne({ _id: req.params.id }, (err, data) => {
     if (err) {
@@ -61,6 +63,8 @@ exports.deleteNews = function(req, res) {
 
 exports.updateNews = function(req, res) {
   //res.send('NOT IMPLEMENTED: News update UPDATE');
+  console.log('from update news, req.user = ');
+  console.log(req.user);
   console.log(req.body);
   //console.log(req.body.keys);
   const param = {};
