@@ -9,7 +9,16 @@ exports.getNews = function(req, res) {
       console.log(err);
     } else {
       console.log(data);
-      res.send(data);
+      console.log(JSON.stringify(data));
+      let d = JSON.stringify(data);
+      let p = JSON.parse(d);
+      console.log(d);
+      console.log(p[0]['date']);
+      //console.log(d._id);
+      //res.send(data);
+      var ob = { action:"date +%s", result:"1367263074"};
+      res.render('news', { layout : 'layout', news: p, json: ob });
+      //res.render('news', { news: p });
     }
   });
 };

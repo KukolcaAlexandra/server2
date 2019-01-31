@@ -89,7 +89,7 @@ app.set('view engine', 'pug');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static('public'));
+app.use(express.static('public'));
 //app.use(express.cookieParser());
 //app.use(express.bodyParser());
 //app.use(express.session({ secret: 'keyboard cat' }));

@@ -1,0 +1,19 @@
+script(src='/put.js')
+
+ul
+  each val, key in news
+    li 
+        p #{val.date}
+        form(action=`/news/${val._id}`, method="delete")
+            button(type='submit') Delete 
+        form(action=`/news/${val._id}`, method="put", enctype="multipart/form-data")
+            label(for='text') Description
+                input.form-control(type='text' id='text' placeholder='email' name='text')
+            button(type='button' onclick=`putMethod(${val._id});`) Edit
+  else
+    li There are no values
+
+
+
+script
+    include script.js
