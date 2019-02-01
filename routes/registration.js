@@ -14,9 +14,11 @@ router.post('/', function(req, res) {
       .catch((err) => console.log(err))
     }  
   });
+  res.redirect('login');   
+});
 
-  res.status(201).send()
-    
+router.get('/', function(req, res, next) {
+  res.render('registration', { title: 'Express' });
 });
 
 module.exports = router;

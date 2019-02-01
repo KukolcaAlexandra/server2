@@ -9,5 +9,4 @@ var newsSchema = new Schema({
   date: { type: Date, default: Date.now },
 });
 
-//Export model
 module.exports = mongoose.model('News', newsSchema);
