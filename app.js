@@ -73,7 +73,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-mongoose.connect('mongodb://localhost:27017/news');
+mongoose.connect('mongodb://alexandra:newsPortal2@ds341605.mlab.com:41605/heroku_ls1csmnq');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -114,7 +114,8 @@ app.use((req, res, next) => {
   next();
 })
 
-app.use('/', indexRouter);
+//app.use('/', indexRouter);
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/news', newsRouter);
 app.use('/registration', registrationRouter);
 app.use('/login', loginRouter);
